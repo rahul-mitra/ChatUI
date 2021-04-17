@@ -1,0 +1,22 @@
+.login {
+  display: grid;
+  input {
+    width: 100%;
+  }
+}
+.autoExpand{
+  flex: 1 1 auto;
+}
+.Slider {
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  span{
+    flex: 1 1 auto;
+  }
+}
+.chatDialog{
+  mat-form-field{
+    width: 100%;
+  }
+}

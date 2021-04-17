@@ -1,0 +1,75 @@
+<ng-container [ngSwitch]="data.command">
+  <ng-container *ngSwitchCase="'login'">
+    <div class="login">
+      <h1 mat-dialog-title>Login</h1>
+      <div mat-dialog-content>
+        Please enter your credentials.
+        <form [formGroup]="fg">
+          <div>Username</div>
+          <input id="userName" type="text" formControlName="userName" />
+          <div>Password</div>
+          <input id="password" type="password" formControlName="password" />
+        </form>
+      </div>
+      <div mat-dialog-actions>
+        <button
+          mat-button
+          (click)="login()"
+          [disabled]="
+            fg.controls.userName.invalid || fg.controls.password.invalid
+          "
+        >
+          Login
+        </button>
+        <button mat-button (click)="dialogRef.close()">Close</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'createChat'">
+    <div class="chatDialog">
+      <h1 mat-dialog-title>Start chat</h1>
+      <div mat-dialog-content>
+        Select a user or multiple for group chat.
+        <div [formGroup]="fg">
+          <div class="Slider">
+            <span>Single Chat</span>
+            <mat-slide-toggle formControlName="isGroupChat" (change)="slideToggleChange($event)">
+              <span>Group Chat</span>
+            </mat-slide-toggle>
+          </div>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Select User</mat-label>
+            <ng-container *ngIf="fg.controls.isGroupChat.value">
+              <mat-select [compareWith]="userComparer" formControlName="user" multiple >
+                <mat-option *ngFor="let user of data.data" [value]="user" >
+                  {{ user.userName }}
+                </mat-option>
+              </mat-select>
+            </ng-container>
+            <ng-container *ngIf="!fg.controls.isGroupChat.value">
+              <mat-select [compareWith]="userComparer" formControlName="user" >
+                <mat-option *ngFor="let user of data.data" [value]="user" >
+                  {{ user.userName }}
+                </mat-option>
+              </mat-select>
+            </ng-container>
+          </mat-form-field>
+        </div>
+      </div>
+      <div mat-dialog-actions>
+        <button
+          mat-button
+          (click)="sendDataAndClose('createChat')"
+          [disabled]="fg.controls.user.invalid"
+        >
+          Chat
+        </button>
+        <span class="autoExpand"></span>
+        <button mat-button (click)="dialogRef.close()">Close</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchDefault>output2</ng-container>
+</ng-container>

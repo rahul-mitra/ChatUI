@@ -1,0 +1,12 @@
+<div class="home-main">
+  <mat-toolbar color="accent" class="main-toolbar">
+    {{ dataService.User?.userName | capatalize }}
+    <span class="autoExpand"> </span>
+    <button mat-icon-button (click)="openDialog('createChat', UserList)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="chatArea">
+    <ng-container #chatArea></ng-container>
+  </div>
+</div>

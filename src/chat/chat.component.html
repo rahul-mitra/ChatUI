@@ -1,0 +1,23 @@
+<div class="chatWindow" #chatWindow>
+  <div class="chatHeader">
+    <div><ng-container *ngIf="!isGroupChat">{{ roomID |capatalize}}</ng-container>
+      <ng-container *ngIf="isGroupChat">{{ unifiedName |capatalize}}</ng-container>
+      <button mat-icon-button (click)="closeChat()"><mat-icon>close</mat-icon></button></div>
+  </div>
+  <div class="chatMessageWindow">
+    <ng-container *ngFor="let chat of chats">
+      <div [ngClass]="{chatMessageInstanceSelf: chat.user.userName==dataService.User?.userName,
+        chatMessageInstanceOther: chat.user.userName!=dataService.User?.userName}">
+        <div class="chatUserName">{{ chat.user.userName | capatalize }}</div>
+        <div class="chatMessage">{{ chat.message }}</div>
+        <div class="chatTime">{{ chat.time | date:'medium'}}</div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="chatInput">
+    <input [(ngModel)]="text" />
+    <!-- <input type="file" hidden #fileSelect name="largeFile" (change)="onFileSelect($event)" /> -->
+    <!-- <button mat-icon-button><mat-icon>attachment</mat-icon></button> -->
+    <button mat-raised-button (click)="sendText()">Send</button>
+  </div>
+</div>
